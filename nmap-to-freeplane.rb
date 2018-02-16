@@ -31,13 +31,13 @@ end
 def generate_node(host)
   node = "<node TEXT=\"#{host.ip.to_s}\" FOLDED=\"true\" ID=\"ID_#{Time.now.to_i.to_s + rand(100).to_s}\">\n"
   host.each_port do |port|
-    node += "<node TEXT=\"#{port.number.to_s}\" ID=\"ID_#{Time.now.to_i.to_s + rand(100).to_s}\">\n"
-    node += "<node TEXT=\"State: #{port.state.to_s }\" ID=\"ID_#{Time.now.to_i.to_s + rand(100).to_s}\">\n"
+    node += "<node TEXT=\"#{port.number.to_s}\" FOLDED=\"true\" ID=\"ID_#{Time.now.to_i.to_s + rand(100).to_s}\">\n"
+    node += "<node TEXT=\"State: #{port.state.to_s }\" FOLDED=\"true\" ID=\"ID_#{Time.now.to_i.to_s + rand(100).to_s}\">\n"
     node += "</node>"
-    node += "<node TEXT=\"Protocol: #{port.protocol.to_s}\" ID=\"ID_#{Time.now.to_i.to_s + rand(100).to_s}\">\n"
+    node += "<node TEXT=\"Protocol: #{port.protocol.to_s}\" FOLDED=\"true\" ID=\"ID_#{Time.now.to_i.to_s + rand(100).to_s}\">\n"
     node += "</node>"
     unless port.service.to_s.nil?
-      node += "<node TEXT=\"Service: #{port.service.to_s}\" ID=\"ID_#{Time.now.to_i.to_s + rand(100).to_s}\">\n"
+      node += "<node TEXT=\"Service: #{port.service.to_s}\" FOLDED=\"true\" ID=\"ID_#{Time.now.to_i.to_s + rand(100).to_s}\">\n"
       node += "</node>"
     end
     node += "</node>"
@@ -55,7 +55,7 @@ def generate_mindmap()
   <map version="freeplane 1.6.0">
     <node TEXT="NMAP" FOLDED="false" ID="ID_325166948">
       <font SIZE="24"/>
-      <node TEXT="hosty" POSITION="right" ID="ID_792112873">
+      <node TEXT="hosts" POSITION="right" ID="ID_792112873">
   EOXML
 
   bottom = <<-EOXML
@@ -77,6 +77,8 @@ def generate_mindmap()
     end
   rescue => e
     puts "[!] Error in saving file".red
+    puts e
+    exit(-2)
   end
 
   puts "[+] Mindmap succesfully generated: #{Dir.pwd}/GeneratedMindmap.mm".green
