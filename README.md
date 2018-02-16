@@ -1,1 +1,1 @@
-# Nmap-To-FreePlane-Mindmap
+# Simple Nmap To FreePlane Mindmap converter
